@@ -37,8 +37,7 @@
                 Console.WriteLine("                                                                           ");
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.Gray;
-                Console.WriteLine("Press any key to return to the main menu...                                ");
-                Console.ReadKey();
+                Habbo_Downloader.App.Menus.ConsolePause.WaitForKey("Press any key to return to the main menu...                                ");
             }
             catch (Exception ex)
             {

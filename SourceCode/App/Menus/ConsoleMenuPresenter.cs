@@ -28,8 +28,18 @@ namespace Habbo_Downloader.App.Menus
                 Console.Write("COMMAND:> ");
                 Console.OutputEncoding = Encoding.UTF8;
 
-                var input = (Console.ReadLine() ?? string.Empty).Trim();
+                var line = Console.ReadLine();
                 Console.ResetColor();
+
+                // End of the input (a script or pipe that ran out of lines): leave the menu instead of reading
+                // nothing as an unknown command forever.
+                if (line == null)
+                {
+                    Console.WriteLine();
+                    return;
+                }
+
+                var input = line.Trim();
 
                 if (string.Equals(input, exitWord, StringComparison.OrdinalIgnoreCase))
                 {
@@ -42,8 +52,7 @@ namespace Habbo_Downloader.App.Menus
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine($"Unknown command: {input}");
                     Console.ResetColor();
-                    Console.WriteLine("Press any key to continue...");
-                    Console.ReadKey();
+                    ConsolePause.WaitForKey("Press any key to continue...");
                     continue;
                 }
 
@@ -65,8 +74,7 @@ namespace Habbo_Downloader.App.Menus
                     Console.WriteLine();
                     if (!MenuHost.SwitchRequested)
                     {
-                        Console.WriteLine("Press any key to continue...");
-                        Console.ReadKey();
+                        ConsolePause.WaitForKey("Press any key to continue...");
                     }
                 }
 
